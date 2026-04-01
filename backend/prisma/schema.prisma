@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  password String
+  role     Role
+  tags     String[]
+}
+
+model Availability {
+  id     String @id @default(uuid())
+  userId String
+  day    String
+  start  String
+  end    String
+}
+
+model BookedCall {
+  id       String @id @default(uuid())
+  userId   String
+  mentorId String
+  time     String
+}
+
+enum Role {
+  USER
+  MENTOR
+  ADMIN
+}
